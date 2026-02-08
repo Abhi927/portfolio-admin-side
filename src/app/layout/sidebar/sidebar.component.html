@@ -1,1 +1,19 @@
-<p>sidebar works!</p>
+<!-- Overlay -->
+<div class="overlay" *ngIf="isOpen" (click)="closeSidebar.emit()"></div>
+
+<!-- Sidebar -->
+<div class="sidebar" [class.open]="isOpen">
+
+  <div class="menu-item" (click)="navigate('dashboard')">
+    🏠 <span>Dashboard</span>
+  </div>
+
+  <div class="menu-item" (click)="navigate('skills')">
+    🧠 <span>Skills</span>
+  </div>
+
+  <div class="menu-item" (click)="navigate('employment')">
+    💼 <span>Employment</span>
+  </div>
+
+</div>

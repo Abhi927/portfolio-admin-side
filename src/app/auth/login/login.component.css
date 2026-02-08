@@ -1,0 +1,49 @@
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.forgot {
+  display: block;
+  text-align: right;
+  font-size: 13px;
+  color: #5b7cfa;
+  cursor: pointer;
+}
+
+.primary {
+  width: 100%;
+  padding: 12px;
+  background: #5b7cfa;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+.divider {
+  text-align: center;
+  margin: 15px 0;
+  color: #999;
+}
+
+.social {
+  display: flex;
+  gap: 10px;
+}
+
+.google, .github {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}

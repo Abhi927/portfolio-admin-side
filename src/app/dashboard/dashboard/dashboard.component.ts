@@ -6,5 +6,15 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
+email = '';
+password = '';
+isSidebarOpen = false;
 
+toggleSidebar() {
+  this.isSidebarOpen = !this.isSidebarOpen;
+}
+
+closeSidebar() {
+  this.isSidebarOpen = false;
+}
 }

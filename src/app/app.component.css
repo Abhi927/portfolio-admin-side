@@ -1,0 +1,8 @@
+.main-content
+{
+    margin-top: 60px;   /* 🔥 header height */
+  padding: 20px;
+  min-height: calc(100vh - 60px);
+  background: #f5f7fb;
+
+}

@@ -1,1 +1,25 @@
-<p>navbar works!</p>
+<header class="header">
+  <!-- LEFT -->
+  <div class="left">
+     <button class="menu-btn" (click)="toggle.emit()">☰</button>
+    <div class="icon">
+      🔒
+    </div>
+    <span class="title">Admin Dashboard</span>
+  </div>
+
+  <!-- RIGHT -->
+
+  <div class="right">
+    <div class="user">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+        alt="user"
+      >
+      <span>{{ userEmail }}</span>
+    </div>
+
+    <button class="logout" (click)="logout()">⏻</button>
+  </div>
+</header>
+
