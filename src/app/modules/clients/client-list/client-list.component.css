@@ -1,0 +1,28 @@
+.client-card {
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.card-header {
+  background: #f8f9ff;
+  font-weight: 600;
+}
+
+.client-icon {
+  color: #4f8cff;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.table th {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.table td {
+  font-size: 14px;
+}
+
+.card-footer {
+  background: #fff;
+}

@@ -6,6 +6,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { LayoutModule } from '../layout/layout.module';
 import { AuthModule } from '../auth/auth.module';
+import { SkillsModule } from '../modules/skills/skills.module';
+import { EmploymentModule } from '../modules/employment/employment.module';
+import { ProjectsModule } from '../modules/projects/projects.module';
+import { ClientsModule } from '../modules/clients/clients.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +19,11 @@ import { AuthModule } from '../auth/auth.module';
     CommonModule,
     DashboardRoutingModule,
     FormsModule,
-    AuthModule
+    AuthModule,
+    SkillsModule,
+    EmploymentModule,
+    ProjectsModule,
+    ClientsModule
   ]
 })
 export class DashboardModule { }

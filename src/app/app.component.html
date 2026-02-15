@@ -3,4 +3,6 @@
   [isOpen]="isSidebarOpen"
   (closeSidebar)="closeSidebar()">
 </app-sidebar>
-<router-outlet [class.main-content]="isLogin" ></router-outlet>
+<div [class.main-content]="isLogin">
+<router-outlet  ></router-outlet>
+</div>

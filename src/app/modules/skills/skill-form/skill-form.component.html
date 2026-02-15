@@ -1,1 +1,51 @@
-<p>skill-form works!</p>
+<div class="modal-backdrop-custom" *ngIf="open">
+  <div class="modal-card">
+
+    <div class="modal-header">
+      <h5>Add Skill</h5>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+
+    <form [formGroup]="skillForm" (ngSubmit)="submit()">
+      <div class="modal-body">
+
+        <div class="form-group">
+          <label>Skill Name</label>
+          <input class="form-control" formControlName="name">
+        </div>
+
+        <div class="form-group">
+          <label>Category</label>
+          <input class="form-control" formControlName="category">
+        </div>
+
+        <div class="form-group">
+          <label>Level (%)</label>
+          <input type="range" min="0" max="100" formControlName="level">
+          <small>{{ skillForm.value.level }}%</small>
+        </div>
+
+        <div class="form-group">
+          <label>Proficiency (%)</label>
+          <input type="number" class="form-control" formControlName="proficiency">
+        </div>
+
+        <div class="form-group">
+          <label>Icon URL</label>
+          <input class="form-control" formControlName="iconUrl">
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light"
+                (click)="closeModal()">Cancel</button>
+        <button class="btn btn-primary" type="submit">
+          Save Skill
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>
+

@@ -14,6 +14,7 @@ import { ProjectFormComponent } from './project-form/project-form.component';
   imports: [
     CommonModule,
     ProjectsRoutingModule
-  ]
+  ],
+  exports: [ProjectListComponent]
 })
 export class ProjectsModule { }

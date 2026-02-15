@@ -3,11 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient,withInterceptorsFromDi } from '@angular/common/http';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { LoginComponent } from './auth/login/login.component';
 import { LayoutModule } from './layout/layout.module';
 import { AuthModule } from './auth/auth.module';
+import { JwtInterceptor } from './shared/jwt.interceptor';
+import { SkillsModule } from './modules/skills/skills.module';
+import { EmploymentModule } from './modules/employment/employment.module';
+import { ProjectsModule } from './modules/projects/projects.module';
+import { ClientsModule } from './modules/clients/clients.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,12 +19,23 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     DashboardModule,
     LayoutModule,
-    AuthModule
+    AuthModule,
+    SkillsModule,
+    EmploymentModule,
+    ProjectsModule,
+    ClientsModule
+   
   ],
-  providers: [],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:JwtInterceptor, 
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

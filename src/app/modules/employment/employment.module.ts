@@ -14,6 +14,7 @@ import { EmploymentFormComponent } from './employment-form/employment-form.compo
   imports: [
     CommonModule,
     EmploymentRoutingModule
-  ]
+  ],
+  exports: [EmploymentListComponent]
 })
 export class EmploymentModule { }

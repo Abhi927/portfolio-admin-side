@@ -1,1 +1,55 @@
-<p>project-list works!</p>
+ <div class="card">
+    <div class="card-header d-flex justify-content-between">
+      <h5>Project Section</h5>
+      <button class="btn btn-primary btn-sm">+ Add Project</button>
+    </div>
+
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Project Name</th>
+            <th>Tech Stack</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of projects">
+            <td>{{ project.client }}</td>
+            <td>{{ project.name }}</td>
+            <td>{{ project.stack }}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary">Edit</button>
+              <button class="btn btn-sm btn-outline-danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<nav class="d-flex justify-content-end">
+  <ul class="pagination pagination-sm">
+
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <button class="page-link" (click)="changePage(currentPage - 1)">
+        Previous
+      </button>
+    </li>
+
+    <li class="page-item"
+        *ngFor="let page of [].constructor(totalPages()); let i = index"
+        [class.active]="currentPage === i + 1">
+      <button class="page-link" (click)="changePage(i + 1)">
+        {{ i + 1 }}
+      </button>
+    </li>
+
+    <li class="page-item" [class.disabled]="currentPage === totalPages()">
+      <button class="page-link" (click)="changePage(currentPage + 1)">
+        Next
+      </button>
+    </li>
+
+  </ul>
+</nav>
