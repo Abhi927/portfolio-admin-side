@@ -3,13 +3,14 @@ import { AuthService } from './auth/auth.service';
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SkillService } from './modules/skills/skill.service';
+import { ClientService } from './modules/clients/client.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent  implements OnInit {
-   constructor(private auth: AuthService,private route:Router,private skilservice:SkillService) {}
+   constructor(private auth: AuthService,private route:Router,private skilservice:SkillService,private clientService:ClientService) {}
   title = 'portfolio-admin';
   isLogin=false;
   isSidebarOpen = false;
@@ -21,6 +22,7 @@ export class AppComponent  implements OnInit {
       }
       else{
         this.skilservice.loadSkill().subscribe();
+        this.clientService.loadClients().subscribe();
       }
     });
   }

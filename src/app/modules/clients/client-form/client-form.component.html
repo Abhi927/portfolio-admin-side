@@ -1,1 +1,45 @@
-<p>client-form works!</p>
+<div class="modal-backdrop-custom" >
+  <div class="modal-card" >
+
+    <div class="modal-header">
+      <h5>Add Client</h5>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+
+    <form [formGroup]="clientForm" (ngSubmit)="submit()">
+      <div class="modal-body">
+
+        <div class="form-group">
+          <label>Client Name</label>
+          <input class="form-control" formControlName="name">
+        </div>
+
+        <div class="form-group">
+          <label>logoUrl</label>
+          <input type="url" class="form-control" formControlName="logoUrl">
+        </div>
+
+        <div class="form-group">
+          <label>Industry</label>
+          <input type="url" class="form-control" formControlName="websiteUrl">
+        </div>
+      
+         <div class="form-group">
+          <label>Description</label>
+              <input type="text" class="form-control" formControlName="description">
+         </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light"
+                (click)="closeModal()">Cancel</button>
+        <button class="btn btn-primary" type="submit">
+          Save Client
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>
+

@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import {jwtDecode} from 'jwt-decode';
 import { environment } from '../../environments/environment';
 import { SkillService } from '../modules/skills/skill.service';
+import { ClientService } from '../modules/clients/client.service';
 interface JwtPayload {
   exp: number;
 }
@@ -14,7 +15,7 @@ interface JwtPayload {
 })
 export class AuthService {
 private API = environment.api.auth ;
-  constructor(private http: HttpClient,private skillservice:SkillService) { }
+  constructor(private http: HttpClient,private skillservice:SkillService,private clientService:ClientService) { }
   private loginStatus = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.loginStatus.asObservable();
 
@@ -29,6 +30,8 @@ private API = environment.api.auth ;
     localStorage.setItem('jwt', response.token);
     this.loginStatus.next(true);
     this.skillservice.loadSkill().subscribe();
+    this.clientService.loadClients().subscribe();
+
   }
   logout() {
       localStorage.removeItem('jwt');

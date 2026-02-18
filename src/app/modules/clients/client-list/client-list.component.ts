@@ -1,49 +1,78 @@
 import { Component } from '@angular/core';
-
+import { ClientSharedService } from '../client-shareService';
+import { ClientService } from '../client.service';
+import { OnInit } from '@angular/core';
+import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
+import { responseClient } from '../client-responseEntity';
 @Component({
   selector: 'app-client-list',
   templateUrl: './client-list.component.html',
   styleUrl: './client-list.component.css'
 })
-export class ClientListComponent {
-clients = [
-    { name: 'LogiSync', industry: 'Software', projects: 6 },
-    { name: 'WebMetrics', industry: 'E-commerce', projects: 3 },
-    { name: 'StartupTech', industry: 'SaaS', projects: 3 }
-  ];
-
-  // Pagination
-  currentPage = 1;
+export class ClientListComponent implements OnInit {
+  client$!: Observable<any[]>;
   itemsPerPage = 5;
-
-  get paginatedClients() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.clients.slice(start, start + this.itemsPerPage);
+  totalPagesCount = 0;
+  paginatedClients$!: Observable<responseClient[]>;
+  currentPage$ = new BehaviorSubject<number>(1);
+  endItem$!: Observable<number>;
+ constructor(private clientShareService: ClientSharedService,private clientService:ClientService) { }
+  ngOnInit(): void {
+  //  Trigger loading clients
+    this.client$ = this.clientService.getClients();
+    this.client$.subscribe(clients => { 
+      this.totalPagesCount = Math.ceil(
+        clients.length / this.itemsPerPage
+      );
+    });
+    this.paginatedClients$=combineLatest([this.client$, this.currentPage$]).pipe(
+      map(([clients, page]) => {
+        const start = (page - 1) * this.itemsPerPage;
+        return clients.slice(start, start + this.itemsPerPage);
+      })
+    );
+     this.endItem$ = combineLatest([
+    this.currentPage$,
+    this.paginatedClients$
+  ]).pipe(
+    map(([page, clients]) => {
+      const end = page * this.itemsPerPage;
+      return Math.min(end, clients.length);
+    })
+  );
   }
-
-  totalPages(): number {
-    return Math.ceil(this.clients.length / this.itemsPerPage);
-  }
-
-  changePage(page: number) {
-    if (page >= 1 && page <= this.totalPages()) {
-      this.currentPage = page;
+  
+  prevPage() {
+    if (this.currentPage$.value > 1) {
+      this.currentPage$.next(this.currentPage$.value - 1);
     }
   }
 
+  nextPage() {
+    if (this.currentPage$.value < this.totalPagesCount) {
+      this.currentPage$.next(this.currentPage$.value + 1);
+    }
+  }
   edit(client: any) {
-    console.log('Edit', client);
+    this.clientShareService.setFlag(true);
+    this.clientShareService.setClient(client);
   }
 
   delete(client: any) {
-    console.log('Delete', client);
+    this.clientService.deleteClient(client.id).subscribe({
+      next: (response) => {
+        alert('Client deleted successfully!');  
+      },
+      error: (error) => {
+        alert('Error deleting client. Please try again.');  
+      }
+    });
   }
-  get startItem(): number {
-  return (this.currentPage - 1) * this.itemsPerPage + 1;
-}
 
-get endItem(): number {
-  const end = this.currentPage * this.itemsPerPage;
-  return end > this.clients.length ? this.clients.length : end;
+
+// open client form
+isVisible$ = this.clientShareService.flag$;
+openClientForm() {
+  this.clientShareService.setFlag(true);
 }
 }

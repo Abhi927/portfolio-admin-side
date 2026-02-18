@@ -3,7 +3,7 @@
   <!-- HEADER -->
   <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0">Client Section</h5>
-    <button class="btn btn-primary btn-sm">+ Add Client</button>
+    <button class="btn btn-primary btn-sm" (click)="openClientForm()">+ Add Client</button>
   </div>
 
   <!-- TABLE -->
@@ -13,19 +13,19 @@
         <tr>
           <th>Client Name</th>
           <th>Industry</th>
-          <th>Projects</th>
+          <th>Description</th>
           <th>Actions</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let client of paginatedClients">
+        <tr *ngFor="let client of paginatedClients$ | async">
           <td>
             <span class="client-icon">⬢</span>
             {{ client.name }}
           </td>
-          <td>{{ client.industry }}</td>
-          <td>{{ client.projects }}</td>
+          <td>{{ client.websiteUrl }}</td>
+          <td>{{ client.description }}</td>
           <td>
             <button class="btn btn-sm btn-outline-primary me-2"
                     (click)="edit(client)">
@@ -44,21 +44,21 @@
   <!-- FOOTER / PAGINATION -->
   <div class="card-footer d-flex justify-content-between align-items-center">
    <small>
-  {{ startItem }} - {{ endItem }} of {{ clients.length }}
+  1 - {{ endItem$ | async }} of {{ totalPagesCount }} Page
 </small>
 
     <nav>
       <ul class="pagination pagination-sm mb-0">
-        <li class="page-item" [class.disabled]="currentPage === 1">
+        <li class="page-item" [class.disabled]="currentPage$.value ===1" >
           <button class="page-link"
-                  (click)="changePage(currentPage - 1)">
+                  (click)="prevPage()">
             Previous
           </button>
         </li>
 
-        <li class="page-item" [class.disabled]="currentPage === totalPages()">
+        <li class="page-item"  [class.disabled]="(currentPage$ | async) === totalPagesCount">
           <button class="page-link"
-                  (click)="changePage(currentPage + 1)">
+                  (click)="nextPage()">
             Next
           </button>
         </li>
@@ -67,3 +67,4 @@
   </div>
 
 </div>
+<app-client-form *ngIf="isVisible$ | async"></app-client-form>

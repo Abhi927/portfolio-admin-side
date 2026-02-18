@@ -16,7 +16,7 @@ selectedSkillId!: number;
 @Input() open = false;
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<any>();
- @Output() update = new EventEmitter<{id: number, skill: any}>();
+  @Output() update = new EventEmitter<{id: number, skill: any}>();
   constructor(private fb: FormBuilder,private skillShared: SkillSharedService,private skillService: SkillService) { 
     
   }

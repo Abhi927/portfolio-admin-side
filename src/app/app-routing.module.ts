@@ -11,7 +11,7 @@ const routes: Routes = [
    { path: 'login', component: LoginComponent },
   {
     path: 'dashboard', component: DashboardComponent,
-    canActivate: [AuthGuard]
+     canActivate: [AuthGuard]
   },
   { path: '**', redirectTo: 'login' },
   // {path:'skills',component:SkillListComponent},
